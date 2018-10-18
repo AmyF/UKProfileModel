@@ -9,3 +9,8 @@
 import Foundation
 
 
+enum ProfileItemType: Int {
+    case id
+    case name
+    case age
+}
