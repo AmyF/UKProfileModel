@@ -1,8 +1,8 @@
 //
 //  UKProfileItem.swift
-//  UKChat
+//  UKProfileModel
 //
-//  Created by unko on 2018/10/18.
+//  Created by unko on 2018/10/24.
 //  Copyright © 2018 unko. All rights reserved.
 //
 
@@ -32,5 +32,10 @@ protocol UKProfileItem {
     func validateInfo() -> String?
     
     // 改变编辑值到实际值
-    func changeValue() -> Bool
+    func changeValue()
+    
+    // 还原改变
+    func reset()
 }
+
+

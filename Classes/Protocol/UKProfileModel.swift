@@ -1,26 +1,29 @@
 //
 //  UKProfileModel.swift
-//  UKChat
+//  UKProfileModel
 //
-//  Created by unko on 2018/10/18.
+//  Created by unko on 2018/10/24.
 //  Copyright © 2018 unko. All rights reserved.
 //
 
 import Foundation
 
-typealias UKProfileModelDataHandler = (_ msg: String?, _ code: Int) -> Void
-
 protocol UKProfileModel {
     func cmpID(_ model: Self) -> Bool
     
-    func fetchDataFromLocal(_ handler: UKProfileModelDataHandler?)
-    func fetchDataFromServer(_ handler:UKProfileModelDataHandler?)
+    associatedtype FetchDataFromLocalHandler
+    func fetchDataFromLocal(_ handler: FetchDataFromLocalHandler?)
+    associatedtype FetchDataFromServerHandler
+    func fetchDataFromServer(_ handler:FetchDataFromServerHandler?)
     
-    func storeDataToLocal(_ handler: UKProfileModelDataHandler?)
-    func storeDataToServer(_ handler:UKProfileModelDataHandler?)
+    associatedtype StoreDataToLocalHandler
+    func storeDataToLocal(_ handler: StoreDataToLocalHandler?)
+    associatedtype StoreDataToServerHandler
+    func storeDataToServer(_ handler:StoreDataToServerHandler?)
     
     func isValid() -> Bool
 }
+
 
 protocol UKProfileDisplayModel: UKProfileModel {
     func numberOfSection() -> Int
@@ -30,8 +33,12 @@ protocol UKProfileDisplayModel: UKProfileModel {
     func item(of indexPath: IndexPath) -> UKProfileItem?
 }
 
-protocol UKProfileEditModel: UKProfileDisplayModel {
-    func modify(item new: UKProfileItem) -> Bool
+protocol UKProfileEditModel: UKProfileModel {
+    func modify(val: Any?, type: Int)
+    
+    func save() -> Bool
     
     func isChanged() -> Bool
+    
+    func reset()
 }
